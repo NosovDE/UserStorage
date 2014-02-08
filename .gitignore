@@ -1,6 +1,11 @@
-*.class
+*.DS_Store
+*.hg
+*.hgignore
+*.iml
+/.idea
+target
 
-# Package Files #
-*.jar
-*.war
-*.ear
+
+# Maven release plugin files
+release.properties
+pom.xml.releaseBackup
