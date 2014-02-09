@@ -5,12 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Component;
 import ru.nde.userstorage.entity.User;
 
 import javax.annotation.Nonnull;
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,11 +33,10 @@ public class UserDao {
     private DataSource dataSource;
 
     /**
-     *
      * @return
      */
     @Nonnull
-    public List<User> getUserList(){
+    public List<User> getUserList() {
         final List<User> userList = new ArrayList<>();
         new JdbcTemplate(dataSource).query(
                 "SELECT * FROM users", new Object[0], new RowCallbackHandler() {
@@ -51,4 +53,38 @@ public class UserDao {
         return userList;
     }
 
+    /**
+     * @param user
+     * @return
+     */
+    public User addUser(final User user) {
+        if (user != null && user.getName() != null && user.getLastname() != null) {
+            new JdbcTemplate(dataSource).update(new PreparedStatementCreator() {
+                @Override
+                public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                    final PreparedStatement ps = con.prepareStatement("INSERT INTO users (name, lastname, salary) values (?, ?, ?)");
+                    ps.setString(1, user.getName());
+                    ps.setString(2, user.getLastname());
+                    ps.setDouble(3, user.getSalary());
+                    return ps;
+                }
+            });
+        }
+        return user;
+    }
+
+
+    /**
+     * @param userId
+     */
+    public void deleteUser(final int userId) {
+        new JdbcTemplate(dataSource).update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                final PreparedStatement ps = con.prepareStatement("DELETE FROM users WHERE id=?");
+                ps.setInt(1, userId);
+                return ps;
+            }
+        });
+    }
 }

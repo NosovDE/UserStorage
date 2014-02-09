@@ -27,6 +27,8 @@ public class User {
      */
     private double salary;
 
+    public User() {
+    }
 
     public User(int id, String name, String lastname, double salary) {
         this.id = id;
