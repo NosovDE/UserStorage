@@ -61,18 +61,11 @@
         </rollingPolicy>
 
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <!--<Pattern>${log.format}</Pattern>-->
             <Pattern>%5p [%d][%thread][%logger] %msg%n</Pattern>
         </layout>
     </appender>
 
-    <logger name="org.hibernate" level="INFO" additivity="false">
-        <appender-ref ref="DB"/>
-        <appender-ref ref="STDOUT_ERROR"/>
-        <appender-ref ref="EXCEPTIONS"/>
-    </logger>
-
-    <logger name="net.sf.ehcache" level="INFO" additivity="false">
+    <logger name="ru.nde.userstorage.dao" level="INFO" additivity="false">
         <appender-ref ref="DB"/>
         <appender-ref ref="STDOUT_ERROR"/>
         <appender-ref ref="EXCEPTIONS"/>
@@ -83,6 +76,4 @@
         <appender-ref ref="STDOUT_ERROR"/>
         <appender-ref ref="EXCEPTIONS"/>
     </root>
-
-
 </configuration>

@@ -154,11 +154,11 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>tomcat-maven-plugin</artifactId>
                 <version>1.1</version>
-                <configuration>
-                    <path>/us</path>
-                    <uriEncoding>UTF-8</uriEncoding>
-                    <port>8080</port>
-                </configuration>
+                <!--<configuration>-->
+                    <!--<path>/us</path>-->
+                    <!--<uriEncoding>UTF-8</uriEncoding>-->
+                    <!--<port>8080</port>-->
+                <!--</configuration>-->
             </plugin>
 
 
@@ -332,6 +332,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- jsp tags -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
