@@ -8,12 +8,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-    <title>!!!</title>
+    <title>Simple user storage</title>
 </head>
 <body>
 
 <h1 style="font: caption; font-size: 25px; color:#000000;margin-left:30px; margin-top:30px; margin-bottom:10px;">
-    <c:out value="Список пользователей"/>
+    <c:out value="Simple User Storage"/>
 </h1>
 
 <form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/add">
@@ -21,24 +21,21 @@
     <table>
         <tr>
             <td class="h"></td>
-            <td class="h">
-
-                <form:input path="name" />
-            </td>
-            <td class="h"><form:input path="lastname" /></td>
-            <td class="h"><form:input path="salary" /></td>
-            <td class="h"></td>
+            <td class="h"><form:input path="name"/></td>
+            <td class="h"><form:input path="lastname"/></td>
+            <td class="h"><form:input path="salary"/></td>
             <td class="h"><input value="Добавить" type="submit"/></td>
         </tr>
     </table>
+
 </form:form>
 
 <table cellspacing="2" class="table1" border="1">
     <tr class="panel-title">
-        <td class="h">id</td>
-        <td class="h">Имя</td>
-        <td class="h">Фамилия</td>
-        <td class="h">Зарплата, руб</td>
+        <td class="h"><a href="${pageContext.request.contextPath}/index/id">id</a></td>
+        <td class="h"><a href="${pageContext.request.contextPath}/index/name">Имя</a></td>
+        <td class="h"><a href="${pageContext.request.contextPath}/index/lastname">Фамилия</a></td>
+        <td class="h"><a href="${pageContext.request.contextPath}/index/salary">Зарплата, руб</a></td>
         <td class="h"></td>
         <td class="h"></td>
     </tr>

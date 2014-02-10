@@ -49,6 +49,22 @@ public class UserStorageController {
         return mav;
     }
 
+    @RequestMapping("/index/{sortBy}")
+    public ModelAndView index(@PathVariable("sortBy") final String sortBy, final HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("index");
+        final SortType sortType;
+        // sortBy = request.getParameter("sortBy");
+        if (sortBy != null) {
+            sortType = SortType.valueOf(sortBy);
+        } else {
+            sortType = SortType.id;
+        }
+
+        mav.getModel().put("userList", service.getAllUserByOrder(sortType, 0, 100));
+        mav.getModel().put("user", new User());
+        return mav;
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addUser(final User user, final HttpServletRequest request) {
         final User u = new User(
@@ -106,4 +122,11 @@ public class UserStorageController {
         service.removeUser(userId);
         return "redirect:/index";
     }
+
+//    @RequestMapping("/sort/{type}")
+//    public String sortUser(@PathVariable("type") final String type) {
+//
+//
+//        return "redirect:/index";
+//    }
 }

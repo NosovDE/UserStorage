@@ -40,18 +40,26 @@ public class UserDao {
     @Nonnull
     public List<User> getUserList(final SortType sortBy, final int skip, final int limit) {
         final List<User> userList = new ArrayList<>();
-        new JdbcTemplate(dataSource).query(
-                "SELECT * FROM users ORDER BY ? LIMIT ?,?", new Object[] {sortBy, skip, limit}, new RowCallbackHandler() {
-            @Override
-            public void processRow(ResultSet rs) throws SQLException {
-                final User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("lastname"),
-                        rs.getDouble("salary"));
-                userList.add(user);
-            }
-        });
+
+        new JdbcTemplate(dataSource).query(new PreparedStatementCreator() {
+                                               @Override
+                                               public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                                                   final PreparedStatement ps = con.prepareStatement(
+                                                           "SELECT * FROM users ORDER BY " + sortBy.name() + " LIMIT " + skip + "," + limit);
+                                                   return ps;
+                                               }
+                                           }, new RowCallbackHandler() {
+                                               @Override
+                                               public void processRow(ResultSet rs) throws SQLException {
+                                                   final User user = new User(
+                                                           rs.getInt("id"),
+                                                           rs.getString("name"),
+                                                           rs.getString("lastname"),
+                                                           rs.getDouble("salary"));
+                                                   userList.add(user);
+                                               }
+                                           }
+        );
         return userList;
     }
 
