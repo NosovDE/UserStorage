@@ -96,6 +96,25 @@ public class UserDao {
         return user;
     }
 
+    /**
+     * @param user
+     */
+    public void updateUser(final User user) {
+        if (user != null) {
+            new JdbcTemplate(dataSource).update(new PreparedStatementCreator() {
+                @Override
+                public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                    final PreparedStatement ps = con.prepareStatement("UPDATE users SET name =?, lastname=?, salary=? WHERE id=?");
+                    ps.setString(1, user.getName());
+                    ps.setString(2, user.getLastname());
+                    ps.setDouble(3, user.getSalary());
+                    ps.setDouble(4, user.getId());
+                    return ps;
+                }
+            });
+        }
+    }
+
 
     /**
      * @param userId

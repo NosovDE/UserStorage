@@ -11,7 +11,12 @@
     <title></title>
 </head>
 <body>
-<form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/add">
+<h1 style="font: caption; font-size: 25px; color:#000000;margin-left:30px; margin-top:30px; margin-bottom:10px;">
+    <c:out value="Редактирование пользователя"/>
+</h1>
+
+<form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/edit/${id}">
+    <form:hidden path="id"/>
     <table cellspacing="2" class="table1" border="1">
         <tr class="panel-title">
             <td class="h">id</td>
@@ -23,9 +28,9 @@
 
         <tr>
             <td class="td2"> ${id}</td>
-            <td class="td2"> <form:input path="name">${name}</form:input></td>
-            <td class="td2"> <form:input path="lastname">${lastname}</form:input>  </td>
-            <td class="td2"> ${salary} </td>
+            <td class="td2"><form:input path="name"/></td>
+            <td class="td2"><form:input path="lastname"/></td>
+            <td class="td2"><form:input path="salary"/></td>
         </tr>
     </table>
     <input value="Сохранить" type="submit"/>

@@ -68,6 +68,24 @@ public class UserStorageController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/edit/{userId}", method = RequestMethod.POST)
+    public ModelAndView editUser(final User user, HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+
+       //userDao.getUser(Integer.parseInt(request.getParameter("id")));
+
+        final User u = new User(
+                Integer.parseInt(request.getParameter("id")),
+                request.getParameter("name"),
+                request.getParameter("lastname"),
+                Double.parseDouble(request.getParameter("salary"))
+        );
+
+
+        userDao.updateUser(u);
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/user/add/process")
     public ModelAndView addingTeam(@ModelAttribute final User user) {
         ModelAndView modelAndView = new ModelAndView();
