@@ -18,6 +18,21 @@
 
 <form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/add">
 
+    <table>
+        <tr>
+            <td class="h"></td>
+            <td class="h">
+
+                <form:input path="name"/>
+            </td>
+            <td class="h"><form:input path="lastname"/></td>
+            <td class="h"><form:input path="salary"/></td>
+            <td class="h"></td>
+            <td class="h"><input value="Добавить" type="submit"/></td>
+        </tr>
+    </table>
+</form:form>
+
 <table cellspacing="2" class="table1" border="1">
     <tr class="panel-title">
         <td class="h">id</td>
@@ -29,32 +44,25 @@
     </tr>
 
 
-    <tr>
-        <td class="h"></td>
-        <td class="h"><form:input path="name"/></td>
-        <td class="h"><form:input path="lastname"/></td>
-        <td class="h"><form:input path="salary"/></td>
-        <td class="h"></td>
-        <td class="h"><input value="Добавить" type="submit"/></td>
-    </tr>
-
-        <%--@elvariable id="userList" type="java.util.List<User>"--%>
-    <c:forEach var="user" items="${userList}" varStatus="status">
+    <%--@elvariable id="userList" type="java.util.List<User>"--%>
+    <c:forEach var="u" items="${userList}">
         <tr>
-            <td class="td2"> ${user.id}</td>
-            <td class="td2"> ${user.name}</td>
-            <td class="td2"> ${user.lastname} </td>
-            <td class="td2"> ${user.salary} </td>
-            <td class="td2"><img src="${pageContext.request.contextPath}/img/edit.jpg">
-                <img src="<c:url value="/img/del.jpg"/>"></td>
+            <td class="td2"> ${u.id}</td>
+            <td class="td2"> ${u.name}</td>
+            <td class="td2"> ${u.lastname} </td>
+            <td class="td2"> ${u.salary} </td>
             <td class="td2">
-                <a href="delete/${contact.id}">del</a>
-                <a href="delete_question.jsp?del=1"
-                   onclick="return window.confirm('Вы уверены, что хотите удалить пользователя ${user.name} ${user.lastname}?');">Удалить</a>
+                <a href="${pageContext.request.contextPath}/edit/${u.id}"><img src="${pageContext.request.contextPath}/img/edit.jpg" alt="Редактировать"/></a>
+            </td>
+            <td class="td2">
+                <a href="${pageContext.request.contextPath}/delete/${u.id}"
+                   onclick="return window.confirm('Вы уверены, что хотите удалить пользователя ${u.name} ${u.lastname}?');">
+                    <img src="${pageContext.request.contextPath}/img/del.jpg" alt="Удалить"/>
+                </a>
             </td>
         </tr>
     </c:forEach>
-    </form:form>
+    <%--</form:form>--%>
 </table>
 
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import ru.nde.userstorage.entity.User;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,6 +52,28 @@ public class UserDao {
             }
         });
         return userList;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Nullable
+    public User getUser(final int id) {
+        final User[] user = new User[1];
+        new JdbcTemplate(dataSource).query(
+                "SELECT * FROM users WHERE id=?", new Object[]{id}, new RowCallbackHandler() {
+            @Override
+            public void processRow(ResultSet rs) throws SQLException {
+                user[0] = new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("lastname"),
+                        rs.getDouble("salary"));
+            }
+
+        });
+        return null;
     }
 
     /**

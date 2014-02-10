@@ -27,17 +27,18 @@ public class User {
      */
     private double salary;
 
-    public User() {
-    }
 
-    public User(int id, String name, String lastname, double salary) {
-        this.id = id;
+    public User(String name, String lastname, double salary) {
         this.name = name;
         this.lastname = lastname;
         this.salary = salary;
     }
 
-    public User(String name, String lastname, double salary) {
+    public User() {
+    }
+
+    public User(int id, String name, String lastname, double salary) {
+        this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.salary = salary;

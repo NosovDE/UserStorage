@@ -35,26 +35,34 @@ public class UserStorageController {
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
-        mav.getModel().put("id", "11111111");
         mav.getModel().put("userList", userDao.getUserList());
-        mav.addObject("user", new User());
+        mav.getModel().put("user", new User());
         return mav;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") final User user) {
-        userDao.addUser(user);
+    public String addUser(@ModelAttribute("user") final User user, HttpServletRequest request) {
+        final User u = new User(
+                request.getParameter("name"),
+                request.getParameter("lastname"),
+                Double.parseDouble(request.getParameter("salary"))
+        );
+        userDao.addUser(u);
         return "redirect:/index";
     }
 
-//    @RequestMapping(value="/add")
-//    public ModelAndView addTeamPage() {
-//        ModelAndView modelAndView = new ModelAndView("add-team-form");
-//        modelAndView.addObject("user", new User());
-//        return modelAndView;
-//    }
+    @RequestMapping(value = "/edit/{userId}")
+    public String editUser(@PathVariable("userId") final Integer userId) {
+        ModelAndView modelAndView = new ModelAndView();
 
-    @RequestMapping(value="/user/add/process")
+        final User user = userDao.getUser(userId);
+
+
+        modelAndView.addObject("user", user);
+        return "redirect:/index";
+    }
+
+    @RequestMapping(value = "/user/add/process")
     public ModelAndView addingTeam(@ModelAttribute final User user) {
         ModelAndView modelAndView = new ModelAndView();
 //        teamService.addTeam(user);
