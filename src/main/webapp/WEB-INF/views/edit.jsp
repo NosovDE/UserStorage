@@ -15,7 +15,7 @@
     <c:out value="Редактирование пользователя"/>
 </h1>
 
-<form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/edit/${id}">
+<form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/index/${id}">
     <form:hidden path="id"/>
     <table cellspacing="2" class="table1" border="1">
         <tr class="panel-title">

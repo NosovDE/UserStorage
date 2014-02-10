@@ -8,7 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Component;
-import ru.nde.userstorage.entity.User;
+import ru.nde.userstorage.model.SortType;
+import ru.nde.userstorage.model.User;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,10 +38,10 @@ public class UserDao {
      * @return
      */
     @Nonnull
-    public List<User> getUserList() {
+    public List<User> getUserList(final SortType sortBy, final int skip, final int limit) {
         final List<User> userList = new ArrayList<>();
         new JdbcTemplate(dataSource).query(
-                "SELECT * FROM users", new Object[0], new RowCallbackHandler() {
+                "SELECT * FROM users ORDER BY ? LIMIT ?,?", new Object[] {sortBy, skip, limit}, new RowCallbackHandler() {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
                 final User user = new User(

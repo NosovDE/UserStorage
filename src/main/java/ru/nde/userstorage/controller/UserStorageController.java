@@ -4,14 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ru.nde.userstorage.dao.UserDao;
-import ru.nde.userstorage.entity.User;
+import ru.nde.userstorage.model.SortType;
+import ru.nde.userstorage.model.User;
+import ru.nde.userstorage.service.UserStorageService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,7 +26,7 @@ public class UserStorageController {
     private static final Logger logger = LoggerFactory.getLogger(UserStorageController.class);
 
     @Autowired
-    private UserDao userDao;
+    private UserStorageService service;
 
     @RequestMapping("/")
     public String home() {
@@ -33,21 +34,29 @@ public class UserStorageController {
     }
 
     @RequestMapping("/index")
-    public ModelAndView index(HttpServletRequest request) {
+    public ModelAndView index(final HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
-        mav.getModel().put("userList", userDao.getUserList());
+        final SortType sortType;
+        final String sortBy = request.getParameter("sortBy");
+        if (sortBy != null) {
+            sortType = SortType.valueOf(sortBy);
+        } else {
+            sortType = SortType.id;
+        }
+
+        mav.getModel().put("userList", service.getAllUserByOrder(sortType, 0, 100));
         mav.getModel().put("user", new User());
         return mav;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(User user, HttpServletRequest request) {
+    public String addUser(final User user, final HttpServletRequest request) {
         final User u = new User(
                 request.getParameter("name"),
                 request.getParameter("lastname"),
                 Double.parseDouble(request.getParameter("salary"))
         );
-        userDao.addUser(u);
+        service.addUser(u);
         return "redirect:/index";
     }
 
@@ -55,7 +64,7 @@ public class UserStorageController {
     public ModelAndView editUser(@PathVariable("userId") final Integer userId) {
         ModelAndView modelAndView = new ModelAndView("edit");
 
-        final User user = userDao.getUser(userId);
+        final User user = service.getUser(userId);
         if (user != null) {
             modelAndView.addObject("user", user);
             modelAndView.addObject("name", user.getName());
@@ -68,21 +77,17 @@ public class UserStorageController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit/{userId}", method = RequestMethod.POST)
-    public ModelAndView editUser(final User user, HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView();
-
-       //userDao.getUser(Integer.parseInt(request.getParameter("id")));
-
+    @RequestMapping(value = "/index/{userId}", method = RequestMethod.POST)
+    public ModelAndView editUser(final User user, final HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        //userDao.getUser(Integer.parseInt(request.getParameter("id")));
         final User u = new User(
                 Integer.parseInt(request.getParameter("id")),
                 request.getParameter("name"),
                 request.getParameter("lastname"),
                 Double.parseDouble(request.getParameter("salary"))
         );
-
-
-        userDao.updateUser(u);
+        service.updateUser(u);
         return modelAndView;
     }
 
@@ -97,8 +102,8 @@ public class UserStorageController {
 
 
     @RequestMapping("/delete/{userId}")
-    public String deleteUser(@PathVariable("userId") Integer userId) {
-        userDao.deleteUser(userId);
+    public String deleteUser(@PathVariable("userId") final Integer userId) {
+        service.removeUser(userId);
         return "redirect:/index";
     }
 }
