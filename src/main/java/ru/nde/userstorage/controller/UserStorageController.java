@@ -41,7 +41,7 @@ public class UserStorageController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") final User user, HttpServletRequest request) {
+    public String addUser(User user, HttpServletRequest request) {
         final User u = new User(
                 request.getParameter("name"),
                 request.getParameter("lastname"),
@@ -52,14 +52,20 @@ public class UserStorageController {
     }
 
     @RequestMapping(value = "/edit/{userId}")
-    public String editUser(@PathVariable("userId") final Integer userId) {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView editUser(@PathVariable("userId") final Integer userId) {
+        ModelAndView modelAndView = new ModelAndView("edit");
 
         final User user = userDao.getUser(userId);
-
-
-        modelAndView.addObject("user", user);
-        return "redirect:/index";
+        if (user != null) {
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("name", user.getName());
+            modelAndView.addObject("lastname", user.getLastname());
+            modelAndView.addObject("salary", user.getSalary());
+            modelAndView.addObject("id", user.getId());
+        } else {
+            return new ModelAndView("index");
+        }
+        return modelAndView;
     }
 
     @RequestMapping(value = "/user/add/process")

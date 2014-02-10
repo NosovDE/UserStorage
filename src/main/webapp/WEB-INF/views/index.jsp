@@ -23,10 +23,10 @@
             <td class="h"></td>
             <td class="h">
 
-                <form:input path="name"/>
+                <form:input path="name" />
             </td>
-            <td class="h"><form:input path="lastname"/></td>
-            <td class="h"><form:input path="salary"/></td>
+            <td class="h"><form:input path="lastname" /></td>
+            <td class="h"><form:input path="salary" /></td>
             <td class="h"></td>
             <td class="h"><input value="Добавить" type="submit"/></td>
         </tr>

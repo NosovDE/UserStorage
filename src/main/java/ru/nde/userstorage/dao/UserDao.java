@@ -73,7 +73,7 @@ public class UserDao {
             }
 
         });
-        return null;
+        return user[0];
     }
 
     /**
