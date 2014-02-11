@@ -80,13 +80,14 @@ public class UserDao {
                         rs.getString("lastname"),
                         rs.getDouble("salary"));
             }
-
         });
         return user[0];
     }
 
     /**
-     * @param user
+     * Add user
+     *
+     * @param user user object
      * @return
      */
     public User addUser(final User user) {
@@ -106,6 +107,8 @@ public class UserDao {
     }
 
     /**
+     * Update user
+     *
      * @param user
      */
     public void updateUser(final User user) {
@@ -126,7 +129,9 @@ public class UserDao {
 
 
     /**
-     * @param userId
+     * Remove user with id
+     *
+     * @param userId user id
      */
     public void deleteUser(final int userId) {
         new JdbcTemplate(dataSource).update(new PreparedStatementCreator() {

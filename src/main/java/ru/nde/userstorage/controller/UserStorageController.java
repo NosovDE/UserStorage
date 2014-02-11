@@ -43,7 +43,6 @@ public class UserStorageController {
         } else {
             sortType = SortType.id;
         }
-
         mav.getModel().put("userList", service.getAllUserByOrder(sortType, 0, 100));
         mav.getModel().put("user", new User());
         return mav;
@@ -53,13 +52,11 @@ public class UserStorageController {
     public ModelAndView index(@PathVariable("sortBy") final String sortBy, final HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("index");
         final SortType sortType;
-        // sortBy = request.getParameter("sortBy");
         if (sortBy != null) {
             sortType = SortType.valueOf(sortBy);
         } else {
             sortType = SortType.id;
         }
-
         mav.getModel().put("userList", service.getAllUserByOrder(sortType, 0, 100));
         mav.getModel().put("user", new User());
         return mav;
