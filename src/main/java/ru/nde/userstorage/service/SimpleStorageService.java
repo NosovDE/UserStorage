@@ -22,7 +22,7 @@ import java.util.List;
  * @description: <br>
  */
 @Service
-@Transactional
+//@Transactional
 public class SimpleStorageService implements UserStorageService {
     private static final Logger logger = LoggerFactory.getLogger(SimpleStorageService.class);
 
