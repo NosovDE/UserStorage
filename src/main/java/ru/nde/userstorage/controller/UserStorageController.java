@@ -4,16 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.nde.userstorage.model.SortType;
 import ru.nde.userstorage.model.User;
 import ru.nde.userstorage.service.UserStorageService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * @author: Dmitriy E. Nosov <br>
@@ -33,7 +31,7 @@ public class UserStorageController {
     }
 
     @RequestMapping("/index")
-    public ModelAndView index(final HttpServletRequest request) {
+    public ModelAndView index( final HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
         final SortType sortType;
         final String sortBy = request.getParameter("sortBy");
@@ -48,9 +46,10 @@ public class UserStorageController {
     }
 
     @RequestMapping("/index/{sortBy}")
-    public ModelAndView index(@PathVariable("sortBy") final String sortBy, final HttpServletRequest request) {
+    public ModelAndView index(@PathVariable final String sortBy, final HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("index");
         final SortType sortType;
+//        final String sortBy = request.getParameter("sortBy");
         if (sortBy != null) {
             sortType = SortType.valueOf(sortBy);
         } else {
@@ -62,11 +61,16 @@ public class UserStorageController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(final User user, final HttpServletRequest request) {
+    public String addUser(
+            @ModelAttribute final User user,
+            @RequestParam @Valid String name,
+            @RequestParam @Valid String lastname,
+            @RequestParam @Valid Double salary,
+            final HttpServletRequest request) {
         final User u = new User(
-                request.getParameter("name"),
-                request.getParameter("lastname"),
-                Double.parseDouble(request.getParameter("salary"))
+                name,
+                lastname,
+                salary
         );
         service.addUser(u);
         return "redirect:/index";

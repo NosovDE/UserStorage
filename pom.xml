@@ -79,28 +79,28 @@
 
 
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-compiler-plugin</artifactId>-->
-                <!--<version>${version.maven.plugin.compiler}</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>compile</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>compile</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<source>${project.build.jdk}</source>-->
-                    <!--<target>${project.build.jdk}</target>-->
-                    <!--<encoding>${project.build.sourceEncoding}</encoding>-->
-                    <!--<debug>${project.build.debug}</debug>-->
-                    <!--<showDeprecation>true</showDeprecation>-->
-                    <!--<showWarnings>true</showWarnings>-->
-                    <!--<fork>true</fork>-->
-                    <!--&lt;!&ndash;<meminitial>128m</meminitial>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<maxmem>512m</maxmem>&ndash;&gt;-->
-                <!--</configuration>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-compiler-plugin</artifactId>-->
+            <!--<version>${version.maven.plugin.compiler}</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<phase>compile</phase>-->
+            <!--<goals>-->
+            <!--<goal>compile</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--<configuration>-->
+            <!--<source>${project.build.jdk}</source>-->
+            <!--<target>${project.build.jdk}</target>-->
+            <!--<encoding>${project.build.sourceEncoding}</encoding>-->
+            <!--<debug>${project.build.debug}</debug>-->
+            <!--<showDeprecation>true</showDeprecation>-->
+            <!--<showWarnings>true</showWarnings>-->
+            <!--<fork>true</fork>-->
+            <!--&lt;!&ndash;<meminitial>128m</meminitial>&ndash;&gt;-->
+            <!--&lt;!&ndash;<maxmem>512m</maxmem>&ndash;&gt;-->
+            <!--</configuration>-->
             <!--</plugin>-->
 
 
@@ -155,9 +155,9 @@
                 <artifactId>tomcat-maven-plugin</artifactId>
                 <version>1.1</version>
                 <!--<configuration>-->
-                    <!--<path>/us</path>-->
-                    <!--<uriEncoding>UTF-8</uriEncoding>-->
-                    <!--<port>8080</port>-->
+                <!--<path>/us</path>-->
+                <!--<uriEncoding>UTF-8</uriEncoding>-->
+                <!--<port>8080</port>-->
                 <!--</configuration>-->
             </plugin>
 
@@ -367,6 +367,13 @@
             <artifactId>spring-test-mvc</artifactId>
             <version>1.0.0.M1</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- JSR 303-->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
         </dependency>
 
     </dependencies>
