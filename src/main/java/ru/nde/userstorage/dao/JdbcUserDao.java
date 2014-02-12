@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import javax.validation.constraints.NotNull;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +48,7 @@ public class JdbcUserDao implements UserDao {
      */
     @Override
     @Nonnull
-    public List<User> getUserList(@Nonnull final SortType sortBy, final int skip, final int limit) {
+    public List<User> getUserList(@NotNull final SortType sortBy, final int skip, final int limit) {
         final List<User> userList = new ArrayList<>();
 
         jdbcTemplate.query(new PreparedStatementCreator() {

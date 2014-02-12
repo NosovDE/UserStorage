@@ -21,9 +21,15 @@
     <table>
         <tr>
             <td class="h"></td>
-            <td class="h"><form:input path="name"/></td>
-            <td class="h"><form:input path="lastname"/></td>
-            <td class="h"><form:input path="salary"/></td>
+            <td class="h">
+                <form:label path="name">Имя: </form:label>
+                <form:input path="name" id="name"/></td>
+            <td class="h">
+                <form:label path="lastname">Фамилия: </form:label>
+                <form:input path="lastname" id="lastname"/></td>
+            <td class="h">
+                <form:label path="name">Сумма: </form:label>
+                <form:input path="salary" id="salary"/></td>
             <td class="h"><input value="Добавить" type="submit"/></td>
         </tr>
     </table>

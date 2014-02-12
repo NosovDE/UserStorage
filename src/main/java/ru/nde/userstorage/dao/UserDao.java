@@ -5,6 +5,7 @@ import ru.nde.userstorage.model.User;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public interface UserDao {
      * @return
      */
     @Nonnull
-    List<User> getUserList(@Nonnull SortType sortBy, int skip, int limit);
+    List<User> getUserList(@NotNull SortType sortBy, int skip, int limit);
 
     /**
      * Get user by id
