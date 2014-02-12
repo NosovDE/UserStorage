@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import ru.nde.userstorage.dao.UserDao;
 import ru.nde.userstorage.model.SortType;
 import ru.nde.userstorage.model.User;
 import ru.nde.userstorage.service.UserStorageService;

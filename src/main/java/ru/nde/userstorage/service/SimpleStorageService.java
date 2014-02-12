@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.nde.userstorage.dao.UserDao;
+import ru.nde.userstorage.dao.JdbcUserDao;
 import ru.nde.userstorage.model.SortType;
 import ru.nde.userstorage.model.User;
 
@@ -27,7 +26,7 @@ public class SimpleStorageService implements UserStorageService {
     private static final Logger logger = LoggerFactory.getLogger(SimpleStorageService.class);
 
     @Autowired
-    private UserDao userDao;
+    private JdbcUserDao userDao;
 
     /**
      * Add user
