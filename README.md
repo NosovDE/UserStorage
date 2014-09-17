@@ -26,3 +26,4 @@ SQL скрипты расположены в подпапке sql:
 
 
 [ ![Codeship Status for NosovDE/UserStorage](https://www.codeship.io/projects/dea70e30-2094-0132-2300-5a4be02c6d84/status)](https://www.codeship.io/projects/35995)
+
